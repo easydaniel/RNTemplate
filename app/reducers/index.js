@@ -1,8 +1,7 @@
 import { combineReducers } from 'redux'
-import { reducer as router } from 'react-router-redux'
 
-const reducer = combineReducers({
-    router
+import base from './base'
+
+export default combineReducers({
+  base
 })
-
-export default reducer

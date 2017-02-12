@@ -1,33 +1,20 @@
-import React, { Component, StyleSheet } from 'react-native';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux/native';
+import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import store from '../store'
+
 import {
-  actions as routerActions,
-  NavBar,
-  Route,
-  Router,
-  Schema,
-  TabBar,
-  TabRoute
-} from 'react-native-router-redux';
+  View,
+  Text
+} from 'react-native'
 
-const mapStateToProps = state => ({
-  router: state.router,
-});
-
-const mapDispatchToProps = dispatch => bindActionCreators({
-    ...routerActions,
-  }, dispatch)
-});
-
-class Application extends Component {
+export default class Application extends Component {
   render() {
     return (
-      <Router {...this.props} initial="signIn">
-        
-      </Router>
+      <Provider store={store}>
+        <View>
+          <Text>Go back!</Text>
+        </View>
+      </Provider>
     );
   }
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(Application);
