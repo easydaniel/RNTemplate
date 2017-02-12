@@ -1,7 +1,9 @@
 import { handleActions } from 'redux-actions'
+
 const initialState = {
   count: 0
 }
+
 export default handleActions({
     ACTION: {
         next (state, action) {

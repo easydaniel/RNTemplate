@@ -6,10 +6,4 @@ import reducer from '../reducers';
 
 const middleware = [thunk, promiseMiddleware]
 
-const configureStore = compose(
-        applyMiddleware(...middleware)
-      )(createStore)
-
-const store = configureStore(reducer)
-
-export default store
+export default compose(applyMiddleware(...middleware))(createStore)(reducer)

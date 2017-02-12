@@ -4,13 +4,13 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF'
   },
   box: {
-    width: 300,
-    height: 300,
-    backgroundColor: 'skyblue',
+    fontSize: 20,
     textAlign: 'center',
-    color: 'white'
+    color: '#333333',
+    marginBottom: 5
   }
 })
