@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { Actions } from 'react-native-router-flux'
 
 import {
   View,
@@ -13,8 +12,7 @@ import styles from '../styles/base'
 import * as BaseActions from '../actions/base'
 
 const mapStateToProps = state => ({
-  base: state.base,
-  route: state.route
+  base: state.base
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
