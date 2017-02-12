@@ -1,10 +1,13 @@
 import { handleActions } from 'redux-actions'
-const initialState = {}
+const initialState = {
+  count: 0
+}
 export default handleActions({
     ACTION: {
         next (state, action) {
             return {
-                ...state
+                ...state,
+                count: state.count + 1
             }
         },
         throw (state, action) {
