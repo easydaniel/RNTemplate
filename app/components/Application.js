@@ -1,36 +1,37 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { Scene, Router } from 'react-native-router-flux'
-import configureStore from '../store'
+import { Scene, Router } from 'react-native-router-flux';
+import { Text } from 'react-native';
+// Store
+import configureStore from '../store';
 
 // Components
-import Base from './Base'
-import RedScene from './RedScene'
-import BlueScene from './BlueScene'
-import YellowScene from './YellowScene'
-import TealScene from './TealScene'
-import ModalScene from './ModalScene'
+import Base from './Base';
+import RedScene from './RedScene';
+import BlueScene from './BlueScene';
+import YellowScene from './YellowScene';
+import TealScene from './TealScene';
+import ModalScene from './ModalScene';
+
+import styles from '../styles/application';
 
 // TabIcon
-import { Text } from 'react-native'
-const TabIcon = ({ selected, title }) => {
-  return (
-    <Text style={{color: selected ? 'red' :'black'}}>{title}</Text>
+const TabIcon = ({ selected, title }) => (
+  <Text style={{ color: selected ? 'red' : 'black' }}>{title}</Text>
   );
-}
 
 export default class Application extends Component {
 
-  constructor (props) {
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
       isLoading: true,
       store: configureStore(() => this.setState({ isLoading: false })),
-    }
+    };
   }
 
   render() {
-    const { isLoading, store } = this.state
+    const { isLoading, store } = this.state;
     return isLoading ? null : (
       <Provider store={store}>
         <Router>
@@ -38,13 +39,14 @@ export default class Application extends Component {
             {/* Tab Container */}
             <Scene
               key="tabbar"
-              tabs={true}
+              tabs
               initial
-              tabBarStyle={{ backgroundColor: '#FFFFFF' }}
+              tabBarStyle={styles.tabBar}
             >
               {/* Tab and it's scenes */}
               <Scene key="tabone" title="Tab one" icon={TabIcon}>
-                <Scene key="red"
+                <Scene
+                  key="red"
                   component={RedScene}
                   title="Red Scene"
                 />
