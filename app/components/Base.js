@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-
+import { Actions } from 'react-native-router-flux'
+import Button from 'react-native-button'
 import {
   View,
-  Text,
-  TouchableHighlight
+  Text
 } from 'react-native'
 
 import styles from '../styles/base'
@@ -28,9 +28,8 @@ class Base extends Component {
         <Text style={styles.box}>
           Base Component: Count = {count}
         </Text>
-        <TouchableHighlight onPress={() => this.props.action()}>
-          <Text>Increase</Text>
-        </TouchableHighlight>
+        <Button onPress={() => this.props.action()}>Increase</Button>
+        <Button onPress={() => Actions.modal()}>Show Modal</Button>
       </View>
     )
   }
