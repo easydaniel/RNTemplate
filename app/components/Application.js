@@ -29,6 +29,7 @@ export default class Application extends Component {
           <Scene key="root">
             {/* Base Scene */}
             <Scene
+              title="Base Component"
               key="base"
               component={Base}
               initial
