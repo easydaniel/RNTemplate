@@ -4,6 +4,6 @@ export default StyleSheet.create({
   tabBar: {
     backgroundColor: '#FFFFFF',
     borderTopColor: '#AAAAAF',
-    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopWidth: 1,
   },
 });
