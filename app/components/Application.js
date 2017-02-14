@@ -10,7 +10,6 @@ import configureStore from '../store';
 
 // Components
 import Counter from './Counter';
-import Todo from './Todo';
 import RedScene from './RedScene';
 import BlueScene from './BlueScene';
 import YellowScene from './YellowScene';
@@ -27,10 +26,6 @@ const TabIcon = ({ selected, title }) => (
 // Counter Tab Icon
 const CounterTabIcon = ({ selected }) => (
   <EntypoIcon name="calculator" size={26} style={{ color: selected ? 'red' : 'black' }} />
-);
-// Todo Tab Icon
-const TodoTabIcon = ({ selected }) => (
-  <MaterialIcon name="assignment" size={26} style={{ color: selected ? 'red' : 'black' }} />
 );
 
 export default class Application extends Component {
@@ -62,14 +57,6 @@ export default class Application extends Component {
                   key="counter"
                   component={Counter}
                   title="Counter App"
-                />
-              </Scene>
-              <Scene key="todoTab" title="Counter" icon={TodoTabIcon}>
-                <Scene
-                  hideNavBar
-                  key="todo"
-                  component={Todo}
-                  title="Todo App"
                 />
               </Scene>
               {/* Tab and it's scenes */}
