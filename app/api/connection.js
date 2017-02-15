@@ -13,9 +13,3 @@ export const createUDPServer = (port) => {
   server.bind(port);
   return server;
 };
-
-export const createTCPServer = (port) => {
-  const server = dgram.createSocket('tcp4');
-  server.bind(port);
-  return server;
-};

@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { Scene, Router } from 'react-native-router-flux';
+import { Scene, Router, Actions } from 'react-native-router-flux';
 
 // Store
 import configureStore from '../store';
 
 // Components
 import Monitor from './Monitor';
+import Device from './Device';
+import AddDevice from './AddDevice';
 
 export default class Application extends Component {
 
@@ -27,8 +29,20 @@ export default class Application extends Component {
             <Scene
               title="Monitor"
               key="monitor"
+              rightTitle="Add"
+              onRight={() => Actions.search()}
               component={Monitor}
               initial
+            />
+            <Scene
+              key="device"
+              title="Device"
+              component={Device}
+            />
+            <Scene
+              key="search"
+              title="Search"
+              component={AddDevice}
             />
           </Scene>
         </Router>

@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions';
-// import { createUDPServer, createTCPServer } from '../api/connection';
+import { createUDPServer } from '../api/connection';
 
 const initialState = {
   devices: [
@@ -12,15 +12,42 @@ const initialState = {
       ip: '192.168.100.9',
     },
   ],
-  // UDPServer: createUDPServer(8080),
-  // TCPServer: createTCPServer(8848),
+  search: [],
 };
 
 export default handleActions({
-  ACTION: {
-    next(state) {
+  ADD: {
+    next(state, action) {
       return {
         ...state,
+        devices: state.devices.concat([action.payload]),
+        search: state.search.filter(device => (device.mac !== action.payload.mac)),
+      };
+    },
+    throw(state) {
+      return {
+        ...state,
+      };
+    },
+  },
+  REMOVE: {
+    next(state, action) {
+      return {
+        ...state,
+        devices: state.devices.filter(device => (device.mac !== action.payload.mac)),
+      };
+    },
+    throw(state) {
+      return {
+        ...state,
+      };
+    },
+  },
+  NEW_DEVICE: {
+    next(state, action) {
+      return {
+        ...state,
+        search: state.search.concat([action.payload]),
       };
     },
     throw(state) {

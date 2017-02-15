@@ -7,10 +7,4 @@ export default StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  box: {
-    fontSize: 20,
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
 });

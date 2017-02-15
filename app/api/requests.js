@@ -1,4 +1,3 @@
-import fetch from 'isomorphic-fetch';
 import querystring from 'querystring';
 
 export const GET = query => fetch(`hostname?${querystring.stringify(query)}`, {

@@ -8,7 +8,10 @@ export default StyleSheet.create({
   },
   rowContainer: {
     flex: 1,
-    padding: 12,
+    paddingHorizontal: 12,
+    paddingVertical: 30,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   separator: {
     flex: 1,

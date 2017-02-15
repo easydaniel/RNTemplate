@@ -15,7 +15,7 @@ const persistConfig = {
   // In milliseconds
   debounce: 500,
   // reducers to ignore
-  blacklist: [],
+  whitelist: [],
 };
 
 const configureStore = (onComplete) => {
