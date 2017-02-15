@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
-import todo from './todo';
+import monitor from './monitor';
 
 export default combineReducers({
-  todo,
+  monitor,
 });

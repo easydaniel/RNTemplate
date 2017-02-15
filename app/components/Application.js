@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { Scene, Router } from 'react-native-router-flux';
-import { Text } from 'react-native';
+
 // Store
 import configureStore from '../store';
 
 // Components
-import Todo from './Todo';
-
-import styles from '../styles/application';
+import Monitor from './Monitor';
 
 export default class Application extends Component {
 
@@ -27,10 +25,10 @@ export default class Application extends Component {
         <Router>
           <Scene key="root">
             <Scene
-              hideNavBar
-              key="todo"
-              component={Todo}
-              title="Todo App"
+              title="Monitor"
+              key="monitor"
+              component={Monitor}
+              initial
             />
           </Scene>
         </Router>
