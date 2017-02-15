@@ -9,8 +9,6 @@ import configureStore from '../store';
 import Base from './Base';
 import ModalScene from './ModalScene';
 
-import styles from '../styles/application';
-
 export default class Application extends Component {
 
   constructor(props) {
