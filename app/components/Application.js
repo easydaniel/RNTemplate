@@ -6,8 +6,7 @@ import { Scene, Router } from 'react-native-router-flux';
 import configureStore from '../store';
 
 // Components
-import Base from './Base';
-import ModalScene from './ModalScene';
+import Animation from './Animation';
 
 export default class Application extends Component {
 
@@ -27,17 +26,11 @@ export default class Application extends Component {
           <Scene key="root">
             {/* Base Scene */}
             <Scene
-              title="Base Component"
-              key="base"
-              component={Base}
-              initial
-            />
-            {/* Modal Scene */}
-            <Scene
-              key="modal"
-              component={ModalScene}
-              direction="vertical"
+              title="Animation"
+              key="animation"
+              component={Animation}
               hideNavBar
+              initial
             />
           </Scene>
         </Router>
