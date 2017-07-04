@@ -3,14 +3,6 @@ import { createUDPServer } from '../api/connection';
 
 const initialState = {
   devices: [
-    {
-      mac: '110912556677',
-      ip: '192.168.100.2',
-    },
-    {
-      mac: '110912556678',
-      ip: '192.168.100.9',
-    },
   ],
   search: [],
 };
@@ -45,9 +37,15 @@ export default handleActions({
   },
   NEW_DEVICE: {
     next(state, action) {
+      var found = false;
+      state.search.forEach(function(item) {
+        if (item.mac === action.payload.mac) {
+          found = true;
+        }
+      })
       return {
         ...state,
-        search: state.search.concat([action.payload]),
+        search: found ? state.search : state.search.concat([action.payload]),
       };
     },
     throw(state) {

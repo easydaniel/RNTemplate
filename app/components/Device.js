@@ -6,6 +6,7 @@ import {
   View,
 } from 'react-native';
 
+import net from 'react-native-tcp';
 import styles from '../styles/device';
 
 const mapStateToProps = state => ({
@@ -28,40 +29,26 @@ class Device extends Component {
       5: 'ptu-error',
       6: 'ptu-error',
     };
+    const server = net.createServer(function(socket) {
+      socket.on('data', (msg, rinfo) => {
+        const str = Object.keys(msg).map(key => String.fromCharCode(msg[key])).join('');
+        console.log(str);
+      });
+    }).listen(8848)
     this.state = {
-      ...data,
-      vs1: 25,
-      is1: 60,
-      temp: 25,
-      pru: 2,
-      status: ptu[2],
+      status: {},
+      TCPServer: server
     };
-    this.updateDevice = this.updateDevice.bind(this);
-  }
-
-  componentWillMount() {
-    this.setState({
-      routine: setInterval(this.updateDevice, 1000),
-    });
   }
 
   componentWillUnmount() {
-    clearInterval(this.state.routine);
-  }
-
-  updateDevice() {
-    this.setState({
-      ...this.state,
-      vs1: 25 + Math.floor(Math.random() * (60 - 25 + 1)),
-      is1: 60 + Math.floor(Math.random() * (120 - 60 + 1)),
-      temp: 20 + Math.floor(Math.random() * (80 - 20 + 1)),
-    });
+    this.state.TCPServer.close();
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Text>{JSON.stringify(this.state, null, 2)}</Text>
+        <Text>{JSON.stringify(this.state.status, null, 2)}</Text>
       </View>
     );
   }
