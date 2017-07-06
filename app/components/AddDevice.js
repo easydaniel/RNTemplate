@@ -37,6 +37,7 @@ class AddDevice extends Component {
     server.on('message', (msg, rinfo) => {
       const str = Object.keys(msg).map(key => String.fromCharCode(msg[key])).join('');
       const info = str.toString().match(/WCTC_(\w+),(.*)/);
+      console.log(str);
       if (info) {
         $this.props.newDevice({
           mac: info[1],
@@ -46,11 +47,16 @@ class AddDevice extends Component {
     });
   }
 
+  componentWillMount() {
+    this.props.initSearch();
+  }
+
   componentWillUnmount() {
     this.state.UDPServer.close();
   }
 
   addDevice(data) {
+
     const client = dgram.createSocket('udp4');
     const message = Buffer.from(`WCTC_${data.mac}_OK\r\n`);
 

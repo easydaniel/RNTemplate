@@ -10,10 +10,16 @@ const initialState = {
 export default handleActions({
   ADD: {
     next(state, action) {
+      var found = false;
+      state.devices.forEach(function(item) {
+        if (item.mac === action.payload.mac) {
+          found = true;
+        }
+      })
       return {
         ...state,
-        devices: state.devices.concat([action.payload]),
-        search: state.search.filter(device => (device.mac !== action.payload.mac)),
+        devices: found ? state.devices : state.devices.concat([action.payload]),
+        search: [],
       };
     },
     throw(state) {
@@ -46,6 +52,19 @@ export default handleActions({
       return {
         ...state,
         search: found ? state.search : state.search.concat([action.payload]),
+      };
+    },
+    throw(state) {
+      return {
+        ...state,
+      };
+    },
+  },
+  INIT_SEARCH: {
+    next(state, action) {
+      return {
+        ...state,
+        search: [],
       };
     },
     throw(state) {

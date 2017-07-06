@@ -29,12 +29,10 @@ export default class Application extends Component {
             <Scene
               title="Monitor"
               key="monitor"
-              rightTitle="Add"
-              onRight={() => Actions.search()}
               component={Monitor}
               initial
             />
-            <Scene
+            {/* <Scene
               key="device"
               title="Device"
               component={Device}
@@ -43,7 +41,7 @@ export default class Application extends Component {
               key="search"
               title="Search"
               component={AddDevice}
-            />
+            /> */}
           </Scene>
         </Router>
       </Provider>

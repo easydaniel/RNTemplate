@@ -8,10 +8,27 @@ export default StyleSheet.create({
   },
   rowContainer: {
     flex: 1,
-    paddingHorizontal: 12,
-    paddingVertical: 30,
+    paddingHorizontal: 30,
+    paddingVertical: 12,
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  textContainer: {
+    paddingLeft: 30,
+    alignItems: 'flex-start'
+  },
+  textHeader: {
+    fontSize: 18
+  },
+  textSubheader: {
+    marginTop: 8,
+    fontSize: 13,
+    color: 'rgba(23, 23, 23, .5)'
+  },
+  image: {
+    width: 50,
+    height: 50,
+    backgroundColor: 'transparent',
   },
   separator: {
     flex: 1,
