@@ -7,6 +7,7 @@ import {
   TouchableHighlight,
   Switch,
   Text,
+  Alert,
   View,
 } from 'react-native';
 
@@ -79,38 +80,43 @@ class Monitor extends Component {
 
   scanSubnet() {
     NetworkInfo.getIPAddress(ip => {
-      const subnet = ip.match(/(\d+\.\d+\.\d+\.)/)[1]
-      const status = {}
-      for (var i = 1; i < 254; i += 1) {
-        const client = new net.Socket()
-        client.connect(8848, subnet + i);
-        client.on('data', (msg) => {
-          const info = msg.toString().match(/WCTC_(\w+) Vs1: (\d+) mV, Is1: (\d+) mA, T: (\d+) DegC, PRUs: (\d+), PTU_ST: (\d+)/)
-          if (info) {
-            const status = {
-              Vs1: info[2],
-              Is1: info[3],
-              T: info[4],
-              PRUs: info[5],
-              PTU_ST: info[6]
+      try {
+        const subnet = ip.match(/(\d+\.\d+\.\d+\.)/)[1]
+        const status = {}
+        for (var i = 1; i < 254; i += 1) {
+          const client = new net.Socket()
+          client.connect(8848, subnet + i);
+          client.on('data', (msg) => {
+            const info = msg.toString().match(/WCTC_(\w+) Vs1: (\d+) mV, Is1: (\d+) mA, T: (\d+) DegC, PRUs: (\d+), PTU_ST: (\d+)/)
+            if (info) {
+              const status = {
+                Vs1: info[2],
+                Is1: info[3],
+                T: info[4],
+                PRUs: info[5],
+                PTU_ST: info[6]
+              }
+              this.state.devices[info[1]] = {
+                status,
+                client: client,
+                mac: info[1],
+                ip: client.address().address
+              }
+              this.forceUpdate();
             }
-            this.state.devices[info[1]] = {
-              status,
-              client: client,
-              mac: info[1],
-              ip: client.address().address
+          })
+          client.on('error', (e) => {
+            console.log(e);
+          })
+          client.setTimeout(3000, () => {
+            if (!client.address()) {
+              client.destroy();
             }
-            this.forceUpdate();
-          }
-        })
-        client.on('error', (e) => {
-          console.log(e);
-        })
-        client.setTimeout(3000, () => {
-          if (!client.address()) {
-            client.destroy();
-          }
-        })
+          })
+        }
+      } catch (e) {
+        Alert.alert('subnet scan error', `No wifi connected or network error: ${e.message}`)
+        console.log(e);
       }
     });
   }
@@ -125,9 +131,7 @@ class Monitor extends Component {
 
   addDevice(data) {
     const client = new net.Socket();
-    client.connect(8848, data.ip, () => {
-      console.log('connected ptu');
-    })
+    client.connect(8848, data.ip)
     client.on('data', (data) => {
       const info = data.toString().match(/WCTC_(\w+) Vs1: (\d+) mV, Is1: (\d+) mA, T: (\d+) DegC, PRUs: (\d+), PTU_ST: (\d+)/)
       if (info) {
