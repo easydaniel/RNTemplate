@@ -46,9 +46,15 @@ class Monitor extends Component {
     const server = dgram.createSocket('udp4');
     server.bind(8080);
 
+    const client = dgram.createSocket('udp4')
+    client.bind(5000, () => {
+      client.setBroadcast(true)
+    })
+
     this.state = {
       devices: {},
-      UDPServer: server
+      UDPServer: server,
+      UDPClient: client
     }
     this.addDevice = this.addDevice.bind(this)
     this.scanSubnet = this.scanSubnet.bind(this)
@@ -73,15 +79,27 @@ class Monitor extends Component {
 
   componentWillUnmount() {
     this.state.UDPServer.close();
+    this.state.UDPClient.close();
     this.state.devices.forEach((dev) => {
       dev.client.destroy();
     })
+    clearInterval(this.state.periodic)
   }
 
   scanSubnet() {
     NetworkInfo.getIPAddress(ip => {
       try {
         const subnet = ip.match(/(\d+\.\d+\.\d+\.)/)[1]
+        const $this = this
+        var periodic = setInterval(() => {
+          var message = Buffer.from(`WCTC_APP_ALIVE\r\n`);
+          $this.state.UDPClient.send(message, 0, message.length, 8849, subnet + '255', (err) => {
+            console.log(`Send ${message.toString()} to ${subnet + '255'}`);
+          });
+        }, 3000)
+
+        this.state.periodic = periodic;
+
         const status = {}
         for (var i = 1; i < 254; i += 1) {
           const client = new net.Socket()
